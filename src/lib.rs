@@ -43,9 +43,13 @@ fn two_slices_from_one_slice(array: &[u8], n: usize) -> (&[u8], &[u8]) {
 fn slice_array(array: &[u8]) -> [&[u8]; 4] {
     let len = array.len();
     let i = len / 4;
-    [&array[..i], &array[i..2 * i], &array[2 * i..3 * i], &array[3 * i..]]
+    [
+        &array[..i],
+        &array[i..2 * i],
+        &array[2 * i..3 * i],
+        &array[3 * i..],
+    ]
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -54,7 +58,10 @@ mod tests {
     #[test]
     fn test_slice_array() {
         assert_eq!([&[1], &[2], &[3], &[4]], slice_array(&[1, 2, 3, 4]));
-        assert_eq!([&[1, 2], &[3, 4], &[5, 6], &[7, 8]], slice_array(&[1, 2, 3, 4, 5, 6, 7, 8]));
+        assert_eq!(
+            [&[1, 2], &[3, 4], &[5, 6], &[7, 8]],
+            slice_array(&[1, 2, 3, 4, 5, 6, 7, 8])
+        );
     }
 
     #[test]
